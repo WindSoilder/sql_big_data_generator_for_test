@@ -52,7 +52,7 @@ class User(Base):
         db_session.add(consume_item)
         db_session.commit()
 
-    def create_consume_plan(self, start_date, end_date, money, title, type_id, coment=None):
+    def create_consume_plan(self, start_date, end_date, money, title, type_id, comment=None):
         consume_plan = ConsumePlan(start_date=start_date, end_date=end_date, money=money,
                                    title=title, type_id=type_id, user_id=self.user_id, comment=comment)
         db_session.add(consume_plan)

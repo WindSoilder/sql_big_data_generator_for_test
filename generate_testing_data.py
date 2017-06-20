@@ -10,6 +10,7 @@ And it will do these things:
 6. for each consume type, create 1000 consume items
 '''
 import random
+import datetime
 
 from app.database import init_db, db_session
 from app.models.user import User
@@ -47,33 +48,43 @@ def generate_testing_data():
             user = User.get_user(j)
             user.join_channel(i+1)
 
-def generate_testing_data()
     # for 1000 user create 10 consume type
     # and then create 100 consume plan
     print('create consume type for 1000 users...')
-    print('create  consume plan for each user')
+    print('create 100 consume plan for each user')
     print('create 100 item for each user')
 
     type_name = 'type_{0}'
     comment = 'comment_{0}'
     plan_title = 'plan_title_{0}'
     item_title = 'item_title_{0}'
-    plan_start_date = 
+
     for i in range(1000):
         user = User.get_user(i+1)
         for j in range(10):
             user.create_consume_type(type_name.format(j+1),
                                      comment.format(j+1))
-            for k in range(100):
-                user.create_consume_plan(start_date=,
-                                         end_date=,
-                                         money=randint(100, 500),
+            for k in range(j * 100, (j + 1) * 100):
+                tmp_year = random.randint(2014, 2016)
+                tmp_month = random.randint(1, 5)
+                tmp_day = 1
+                user.create_consume_plan(start_date=datetime.datetime(tmp_year, tmp_month, tmp_day),
+                                         end_date=datetime.datetime(tmp_year, tmp_month + 3, tmp_day),
+                                         money=random.randint(100, 500),
                                          title=plan_title.format(k),
-                                         comment=comment.format(k+1),
+                                         comment=comment.format(k),
                                          type_id=j+1
                                          )
+            for l in range(j * 100, (j + 1) * 100):
+                tmp_year = random.randint(2014, 2016)
+                tmp_month = random.randint(1, 5)
+                tmp_day = 1
+                user.create_consume_item(datetime.datetime(tmp_year, tmp_month, tmp_day),
+                                         money=random.randint(100, 500),
+                                         title=item_title.format(l),
+                                         comment=comment.format(l),
+                                         type_id=j+1)
 
-    
 if __name__ == '__main__':
     init_db()
     generate_testing_data()    
