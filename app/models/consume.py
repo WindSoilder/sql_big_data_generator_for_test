@@ -12,8 +12,14 @@ class ConsumeType(Base):
     comment = Column(String(500))
     user_id = Column(Integer, ForeignKey('user.user_id'))
 
+    @staticmethod
+    def get_consume_type(self, type_id):
+        consume_type = db_session.query(self.__class__).\
+                       filter(self.__class__.type_id == type_id).first()
+        return consume_type
+
     def update_consume_type(self, **kwargs):
-        pass 
+        pass
 
 class ConsumePlan(Base):
     __tablename__ = 'consume_plan'
@@ -32,8 +38,11 @@ class ConsumePlan(Base):
     def update_consume_plan(self, **kwargs):
         pass
 
-    def get_consume_plan(self, **kwargs):
-        pass
+    @staticmethod
+    def get_consume_plan(self, plan_id):
+        consume_plan = db_session.query(self.__class__).\
+                       filter(self.__class__.plan_id == plan_id).first()
+        return consume_plan
 
 class ConsumeItem(Base):
     __tablename__ = 'consume_item'
@@ -50,3 +59,8 @@ class ConsumeItem(Base):
     def update_consume_item(self, **kwargs):
         pass
 
+    @staticmethod
+    def get_consume_item(self, item_id):
+        consume_item = db_session.query(self.__class__).\
+                       filter(self.__clsss__.item_id == item_id).first()
+        return consume_item

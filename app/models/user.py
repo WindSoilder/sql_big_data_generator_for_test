@@ -46,10 +46,23 @@ class User(Base):
         db_session.add(consume_type)
         db_session.commit()
 
+    def delete_consume_type(self, type_id):
+        consume_type = ConsumeType.get_consume_type(type_id)
+        db_session.delete(consume_type)
+        db_session.commit()
+
+    def update_consume_type(self, **kwargs):
+        pass
+
     def create_consume_item(self, date, money, title, type_id, comment=None):
         consume_item = ConsumeItem(date=date, money=money, title=title, 
                                    type_id=type_id, user_id=self.user_id, comment=comment)
         db_session.add(consume_item)
+        db_session.commit()
+
+    def delete_consume_item(self, item_id):
+        consume_item = ConsumeItem.get_consume_item(item_id)
+        db_session.delete(consume_item)
         db_session.commit()
 
     def create_consume_plan(self, start_date, end_date, money, title, type_id, comment=None):
@@ -57,6 +70,14 @@ class User(Base):
                                    title=title, type_id=type_id, user_id=self.user_id, comment=comment)
         db_session.add(consume_plan)
         db_session.commit()
+
+    def delete_consume_plan(self, plan_id):
+        consume_plan = ConsumePlan.get_consume_plan(plan_id)
+        db_session.delete(consume_plan)
+        db_session.commit()
+    
+    def update_consume_plan(self, **kwargs):
+        pass
 
     def create_channel(self, name, level, comment=None):
         channel = Channel(name=name, level=level, comment=comment, user_id=self.user_id)
